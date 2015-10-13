@@ -62,4 +62,4 @@ This pipeline returns an object. This object receives a stream with the files to
 
 ## LICENSE
 
-  + MIT
+  + Apache-2.0
