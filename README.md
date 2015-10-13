@@ -35,22 +35,29 @@ gulp.task('default', function() {
 Pipeline options:
 * _config_ -> Object that contains the configuration.
 
-    + __config.concatenate:__ If _true_ the pipeline will concatenate the files, hence it will generate a js file with all of the files concatenated.
+    1. __addSourceMaps:__ If set to __false__ source maps won't be generated for the compile files. By default the pipeline will generate the source maps and store them in _maps_.
 
-    + __config.output:__ Sets the path to output the concatenate and minify files.
+    2. __concatCSS:__ If set to __false__ the pipeline won't concatenate the files to generate a single CSS file.
+
+    3. __plugins:__ Gathers all of the specific configurations for the tasks used in the pipeline.
+
+      + __plugins.cleanCss:__ Minifies CSS files using the basic [clean-css](https://github.com/jakubpawlowicz/clean-css#what-is-clean-css) configuration. You can provide your own minification rules setting an object-- following [this](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-api) rules.
 
 
   Default:
   ```javascript
   config = {
-        concatenate: false,
-        output: 'dist/'  
-      }
+    addSourceMaps: true,
+    concatCSS: true,
+    plugins:{
+      cleanCss: {}
+    }
+  }
   ```  
 
 ## Results
 
-This pipeline returns an object. This object receives a stream with the files to minify, and you can call the _minifyJS_ method to execute the minification. Based on the configuration provided in _config.concatenate_, the pipeline will concatenate the files or no. After finishing the process you will have a folder named as _config.output_ . In this folder you can find the .min.js file, the source map, and a plain js file if the concatenation was executed.
+This pipeline returns an object. This object receives a stream with the files to minify, and you can call the _minifyCSS_ method to execute the minification. Based on the configuration provided in _config.concatCSS_, the pipeline will concatenate the files or no. If _config.addSourceMaps_ is true, the output stream will include the respectively `.map` files.
 
 
 ## LICENSE

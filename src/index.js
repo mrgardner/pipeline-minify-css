@@ -4,15 +4,23 @@
 
 var lazypipe = require('lazypipe');
 var plugins = require('gulp-load-plugins')({lazy: true});
+var handyman = require('pipeline-handyman');
 
 var config = {
   addSourceMaps: true,
-  concatCSS: true
+  concatCSS: true,
+  plugins:{
+    cleanCss: {}
+  }
 };
 
 module.exports = minifyCSSPipeline;
 
-function minifyCSSPipeline() {
+function minifyCSSPipeline(options) {
+
+  if (config) {
+    config = handyman.updateConf(config, options);
+  }
 
   var pipeline = {
     minifyCSS: minifyCSS()
@@ -25,7 +33,7 @@ function minifyCSSPipeline() {
     .pipe(function() {
       return plugins.if(config.addSourceMaps, plugins.sourcemaps.init());
     })
-    .pipe(plugins.minifyCss)
+    .pipe(plugins.minifyCss, config.plugins.cleanCss)
     .pipe(function() {
       return plugins.if(config.concatCSS, plugins.concat('build.min.css'));
     })
