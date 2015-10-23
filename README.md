@@ -5,7 +5,7 @@
 
 | Package       | Description   | Version|
 | ------------- |:-------------:| -----:|
-| pipeline-minify-css| This pipeline minifies and optionally concatenates css files | 0.1.0 |
+| pipeline-minify-css| This pipeline minifies and optionally concatenates css files | 0.1.1 |
 
 # Overview
 
