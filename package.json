@@ -40,22 +40,20 @@
   "analyze": true,
   "license": "Apache-2.0",
   "dependencies": {
+    "gulp-concat": "2.6.0",
+    "gulp-if": "2.0.0",
+    "gulp-minify-css": "1.2.1",
+    "gulp-sourcemaps": "1.6.0",
+    "lazypipe": "1.0.1",
+    "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#0.1.1"
+  },
+  "devDependencies": {
     "chai": "3.3.0",
     "del": "2.0.2",
     "gulp": "3.9.0",
-    "gulp-concat": "2.6.0",
-    "gulp-if": "2.0.0",
-    "gulp-load-plugins": "0.10.0",
-    "gulp-minify-css": "1.2.1",
-    "gulp-sourcemaps": "1.6.0",
-    "gulp-util": "3.0.6",
-    "lazypipe": "1.0.1",
-    "pipeline-handyman": "git+ssh://git@github.com/kenzanmedia/pipeline-handyman.git#0.1.0",
-    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#0.1.0"
-  },
-  "devDependencies": {
-    "isstream": "0.1.2",
     "path": "0.12.7",
+    "pipeline-test-node": "git+ssh://git@github.com/kenzanmedia/pipeline-test-node.git#0.2.0",
+    "pipeline-validate-js": "git+ssh://git@github.com/kenzanmedia/pipeline-validate-js.git#0.1.0",
     "stream-assert": "2.0.3"
   }
 }

@@ -1,10 +1,11 @@
-/*global require, module */
-
 'use strict';
 
-var lazypipe = require('lazypipe');
-var plugins = require('gulp-load-plugins')({lazy: true});
+var concat = require('gulp-concat');
 var handyman = require('pipeline-handyman');
+var gulpIf = require('gulp-if');
+var lazypipe = require('lazypipe');
+var minCSS = require('gulp-minify-css');
+var sourcemaps = require('gulp-sourcemaps');
 
 var config = {
   addSourceMaps: true,
@@ -18,9 +19,8 @@ module.exports = minifyCSSPipeline;
 
 function minifyCSSPipeline(options) {
 
-  if (config) {
-    config = handyman.updateConf(config, options);
-  }
+  options = options || {};
+  config = handyman.mergeConf(config, options);
 
   var pipeline = {
     minifyCSS: minifyCSS()
@@ -31,14 +31,14 @@ function minifyCSSPipeline(options) {
   function minifyCSS() {
     return lazypipe()
     .pipe(function() {
-      return plugins.if(config.addSourceMaps, plugins.sourcemaps.init());
+      return gulpIf(config.addSourceMaps, sourcemaps.init());
     })
-    .pipe(plugins.minifyCss, config.plugins.cleanCss)
+    .pipe(minCSS, config.plugins.cleanCss)
     .pipe(function() {
-      return plugins.if(config.concatCSS, plugins.concat('build.min.css'));
+      return gulpIf(config.concatCSS, concat('build.min.css'));
     })
     .pipe(function() {
-      return plugins.if(config.addSourceMaps, plugins.sourcemaps.write('maps'));
+      return gulpIf(config.addSourceMaps, sourcemaps.write('maps'));
     });
   }
 }
