@@ -1,2 +1,5 @@
+coverage/
+dest/
 node_modules/
+reports/
 .idea/

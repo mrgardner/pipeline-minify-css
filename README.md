@@ -35,11 +35,11 @@ gulp.task('default', function() {
 Pipeline options:
 * _config_ -> Object that contains the configuration.
 
-    1. __addSourceMaps:__ If set to __false__ source maps won't be generated for the compile files. By default the pipeline will generate the source maps and store them in _maps_.
+    * __addSourceMaps:__ If set to __false__ source maps won't be generated for the compile files. By default the pipeline will generate the source maps and store them in _maps_.
 
-    2. __concatCSS:__ If set to __false__ the pipeline won't concatenate the files to generate a single CSS file.
+    * __concatCSS:__ If set to __false__ the pipeline won't concatenate the files to generate a single CSS file.
 
-    3. __plugins:__ Gathers all of the specific configurations for the tasks used in the pipeline.
+    * __plugins:__ Gathers all of the specific configurations for the tasks used in the pipeline.
 
       + __plugins.cleanCss:__ Minifies CSS files using the basic [clean-css](https://github.com/jakubpawlowicz/clean-css#what-is-clean-css) configuration. You can provide your own minification rules setting an object-- following [this](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-api) rules.
 

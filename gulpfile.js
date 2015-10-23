@@ -1,38 +1,40 @@
 'use strict';
 
+var del = require('del');
 var gulp = require('gulp');
 var minifyCssPipeline = require('./src/index.js')();
+var testPipeline = require('pipeline-test-node')();
 var validatePipeline = require('pipeline-validate-js')();
-var del = require('del');
 
 var config = {
-  files: [
-   'src/*.js',
+  cssFiles: [
+    'test/**/*.css'
   ],
 
-  cssFiles: [
-   'test/**/*.css'
+  jsFiles: [
+    '*.js',
+    'src/**/*.js',
+    'test/**/*.js'
   ]
-
 };
-
-gulp.task('validate', function() {
-  return gulp
-    .src(config.files)
-    .pipe(validatePipeline.validateJS());
-});
-
-gulp.task('default', ['clean', 'validate'] , function() {
-
-  return gulp
-    .src(config.cssFiles)
-    .pipe(minifyCssPipeline.minifyCSS())
-    .pipe(gulp.dest('dist/'));
-});
-
 
 gulp.task('clean', function () {
   return del.sync([
     './dist/**'
   ]);
+});
+
+gulp.task('validate', function() {
+  return gulp
+    .src(config.jsFiles)
+    .pipe(validatePipeline.validateJS())
+    .pipe(testPipeline.test());
+});
+
+gulp.task('build', ['clean', 'validate'] , function() {
+
+  return gulp
+    .src(config.cssFiles)
+    .pipe(minifyCssPipeline.minifyCSS())
+    .pipe(gulp.dest('dest/'));
 });
