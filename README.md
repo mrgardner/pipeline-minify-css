@@ -1,4 +1,4 @@
-# Pipeline-minify-css
+# pipeline-minify-css
 
 
 ## Information
