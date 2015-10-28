@@ -38,6 +38,8 @@ Pipeline options:
     * __addSourceMaps:__ If set to __false__ source maps won't be generated for the compile files. By default the pipeline will generate the source maps and store them in _maps_.
 
     * __concatCSS:__ If set to __false__ the pipeline won't concatenate the files to generate a single CSS file.
+    
+    * __concatFilename:__ If concatCSS set to true, this will be used to name the concatenated CSS file
 
     * __plugins:__ Gathers all of the specific configurations for the tasks used in the pipeline.
 
