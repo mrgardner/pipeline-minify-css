@@ -62,6 +62,7 @@ describe('pipeline-minify-css', function() {
         .src(getFixtures('*'))
         .pipe(minifyPipeline({
           addSourceMaps: true,
+          concat: true,
           concatFilename: customFilename
         }).minifyCSS())
         .pipe(assert.length(2))
