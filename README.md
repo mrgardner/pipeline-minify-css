@@ -1,4 +1,4 @@
-# Pipeline-minify-css
+# pipeline-minify-css
 
 
 ## Information
@@ -35,14 +35,17 @@ gulp.task('default', function() {
 Pipeline options:
 * _config_ -> Object that contains the configuration.
 
-    * __addSourceMaps:__ If set to __false__ source maps won't be generated for the compile files. By default the pipeline will generate the source maps and store them in _maps_.
+  * __addSourceMaps:__ If set to __false__ source maps won't be generated for the compile files. By default the pipeline will generate the source maps and store them in _maps_.
 
-    * __concatCSS:__ If set to __false__ the pipeline won't concatenate the files to generate a single CSS file.
+  * __concat:__ If set to __false__ the pipeline won't concatenate the files to generate a single CSS file.
+    
+  * __concatFilename:__ If concatCSS set to true, this will be used to name the concatenated CSS file
 
-    * __plugins:__ Gathers all of the specific configurations for the tasks used in the pipeline.
+  * __plugins:__ Gathers all of the specific configurations for the tasks used in the pipeline.
 
-      + __plugins.cleanCss:__ Minifies CSS files using the basic [clean-css](https://github.com/jakubpawlowicz/clean-css#what-is-clean-css) configuration. You can provide your own minification rules setting an object-- following [this](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-api) rules.
+    * __plugins.cleanCss:__ Minifies CSS files using the basic [clean-css](https://github.com/jakubpawlowicz/clean-css#what-is-clean-css) configuration. You can provide your own minification rules setting an object-- following [this](https://github.com/jakubpawlowicz/clean-css#how-to-use-clean-css-api) rules.
 
+  * __output:__ Where to
 
   Default:
   ```javascript
@@ -62,16 +65,16 @@ This pipeline returns an object. This object receives a stream with the files to
 
 ## LICENSE
 
-  Copyright (c) 2015 Kenzan <http://kenzan.com>
+Copyright (c) 2015 Kenzan <http://kenzan.com>
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-      http://www.apache.org/licenses/LICENSE-2.0
+    http://www.apache.org/licenses/LICENSE-2.0
 
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.

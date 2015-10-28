@@ -9,7 +9,8 @@ var sourcemaps = require('gulp-sourcemaps');
 
 var config = {
   addSourceMaps: true,
-  concatCSS: true,
+  concat: true,
+  concatFilename: handyman.getPackageName() + '.min.css',
   plugins:{
     cleanCss: {}
   }
@@ -30,15 +31,15 @@ function minifyCSSPipeline(options) {
 
   function minifyCSS() {
     return lazypipe()
-    .pipe(function() {
-      return gulpIf(config.addSourceMaps, sourcemaps.init());
-    })
-    .pipe(minCSS, config.plugins.cleanCss)
-    .pipe(function() {
-      return gulpIf(config.concatCSS, concat('build.min.css'));
-    })
-    .pipe(function() {
-      return gulpIf(config.addSourceMaps, sourcemaps.write('maps'));
-    });
+      .pipe(function() {
+        return gulpIf(config.addSourceMaps, sourcemaps.init());
+      })
+      .pipe(minCSS, config.plugins.cleanCss)
+      .pipe(function() {
+        return gulpIf(config.concat, concat(config.concatFilename));
+      })
+      .pipe(function() {
+        return gulpIf(config.addSourceMaps, sourcemaps.write('maps'));
+      });
   }
 }

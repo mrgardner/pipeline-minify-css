@@ -3,6 +3,7 @@
 var assert = require('stream-assert');
 var expect = require('chai').expect;
 var gulp = require('gulp');
+var handyman = require('pipeline-handyman');
 var minifyPipeline = require('../src/index.js');
 var path = require('path');
 
@@ -18,8 +19,12 @@ describe('pipeline-minify-css', function() {
         .src(getFixtures('*'))
         .pipe(minifyPipeline().minifyCSS())
         .pipe(assert.length(2))
+        .pipe(assert.first(function (file) {
+          var path = 'maps/' + handyman.getPackageName() + '.min.css.map';
+          expect(file.relative.toString()).to.equal(path);
+        }))
         .pipe(assert.last(function (file) {
-          expect(file.relative.toString()).to.equal('build.min.css');
+          expect(file.relative.toString()).to.equal(handyman.getPackageName() + '.min.css');
         }))
         .pipe(assert.end(done));
     });
@@ -29,7 +34,7 @@ describe('pipeline-minify-css', function() {
     it('Should generate only the minified file', function (done) {
       gulp
         .src(getFixtures('*'))
-        .pipe(minifyPipeline({addSourceMaps: false, concatCSS: true}).minifyCSS())
+        .pipe(minifyPipeline({addSourceMaps: false, concat: true}).minifyCSS())
         .pipe(assert.length(1))
         .pipe(assert.end(done));
     });
@@ -37,7 +42,7 @@ describe('pipeline-minify-css', function() {
     it('Should output the same number of files minified', function (done) {
       gulp
         .src(getFixtures('*'))
-        .pipe(minifyPipeline({addSourceMaps: false, concatCSS: false}).minifyCSS())
+        .pipe(minifyPipeline({addSourceMaps: false, concat: false}).minifyCSS())
         .pipe(assert.length(2))
         .pipe(assert.end(done));
     });
@@ -45,8 +50,29 @@ describe('pipeline-minify-css', function() {
     it('Should output the same number of files minified and the map for each one', function (done) {
       gulp
         .src(getFixtures('*'))
-        .pipe(minifyPipeline({addSourceMaps: true, concatCSS: false}).minifyCSS())
+        .pipe(minifyPipeline({addSourceMaps: true, concat: false}).minifyCSS())
         .pipe(assert.length(4))
+        .pipe(assert.end(done));
+    });
+
+    it('Should output custom min and map files', function (done) {
+      var customFilename = 'test/filename.css';
+
+      gulp
+        .src(getFixtures('*'))
+        .pipe(minifyPipeline({
+          addSourceMaps: true,
+          concat: true,
+          concatFilename: customFilename
+        }).minifyCSS())
+        .pipe(assert.length(2))
+        .pipe(assert.first(function (file) {
+          var path = 'maps/' + customFilename + '.map';
+          expect(file.relative.toString()).to.equal(path);
+        }))
+        .pipe(assert.last(function (file) {
+          expect(file.relative.toString()).to.equal(customFilename);
+        }))
         .pipe(assert.end(done));
     });
   });
