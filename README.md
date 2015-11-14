@@ -9,13 +9,14 @@
 
 # Overview
 
+Gulp pipeline for minfiying CSS and optionally concatenating the output.
 
-_repo_: `https://github.com/kenzanmedia/pipeline-minify-css/`
-
-_jenkins_: `TODO`
+**NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.
+Also, as part of a repo migration, version 0.2.0 will not install, so please use any of the newer versions**
 
 ## Install
-`npm install git+ssh:git@github.com:kenzanmedia/pipeline-minify-css.git`
+
+`npm install git://github.com/kenzanlabs/pipeline-minify-css.git --save-dev`
 
 ## Usage
 ```javascript
@@ -65,7 +66,7 @@ This pipeline returns an object. This object receives a stream with the files to
 
 ## LICENSE
 
-Copyright (c) 2015 Kenzan <http://kenzan.com>
+Copyright (c) 2015 Kenzan, LLC <http://kenzan.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
