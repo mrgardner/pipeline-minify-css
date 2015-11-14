@@ -9,7 +9,7 @@
 
 # Overview
 
-Gulp pipeline for minfiying CSS and optionally concatenating the output.
+Gulp pipeline for minifiying CSS and optionally concatenating the output.
 
 **NOTE: as this project is still pre 1.0.0, it is subject to possible backwards incompatible changes as it matures.
 Also, as part of a repo migration, version 0.2.0 will not install, so please use any of the newer versions**
