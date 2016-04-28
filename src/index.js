@@ -5,6 +5,7 @@ var handyman = require('pipeline-handyman');
 var gulpIf = require('gulp-if');
 var lazypipe = require('lazypipe');
 var minCSS = require('gulp-minify-css');
+var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 
 var config = {
@@ -31,11 +32,14 @@ function pipelineFactory() {
       return gulpIf(config.addSourceMaps, sourcemaps.init());
     })
     .pipe(minCSS, config.plugins.cleanCss)
+    .pipe(function () {
+      return gulpIf(!config.concat, rename({extname: '.min.css'}));
+    })
     .pipe(function() {
       return gulpIf(config.concat, concat(config.concatFilename));
     })
     .pipe(function() {
-      return gulpIf(config.addSourceMaps, sourcemaps.write('maps'));
+      return gulpIf(config.addSourceMaps, sourcemaps.write('.'));
     });
 
   return pipeline();
