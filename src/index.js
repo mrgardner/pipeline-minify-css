@@ -16,30 +16,27 @@ var config = {
   }
 };
 
-module.exports = minifyCSSPipeline;
+module.exports = {
+  minifyCSS: function(options) {
+    options = options || {};
+    config = handyman.mergeConf(config, options);
 
-function minifyCSSPipeline(options) {
-
-  options = options || {};
-  config = handyman.mergeConf(config, options);
-
-  var pipeline = {
-    minifyCSS: minifyCSS()
-  };
-
-  return pipeline;
-
-  function minifyCSS() {
-    return lazypipe()
-      .pipe(function() {
-        return gulpIf(config.addSourceMaps, sourcemaps.init());
-      })
-      .pipe(minCSS, config.plugins.cleanCss)
-      .pipe(function() {
-        return gulpIf(config.concat, concat(config.concatFilename));
-      })
-      .pipe(function() {
-        return gulpIf(config.addSourceMaps, sourcemaps.write('maps'));
-      });
+    return pipelineFactory();
   }
+};
+
+function pipelineFactory() {
+  var pipeline = lazypipe()
+    .pipe(function() {
+      return gulpIf(config.addSourceMaps, sourcemaps.init());
+    })
+    .pipe(minCSS, config.plugins.cleanCss)
+    .pipe(function() {
+      return gulpIf(config.concat, concat(config.concatFilename));
+    })
+    .pipe(function() {
+      return gulpIf(config.addSourceMaps, sourcemaps.write('maps'));
+    });
+
+  return pipeline();
 }
